@@ -85,10 +85,5 @@ http://localhost:3000
 
 ---
 
-## Contato
-
-Para dúvidas ou sugestões, abra uma issue ou entre em contato pelo GitHub.
-
----
 
 **Feito com ❤️ para estudo e prática.**
