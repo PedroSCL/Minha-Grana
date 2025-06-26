@@ -1,5 +1,5 @@
 body {
-  font-family: Arial;
+  font-family: 'Inter', Arial, sans-serif;
   margin: 20px;
 }
 input, button {
@@ -7,9 +7,9 @@ input, button {
 }
 
 body.home-bg {
-  background: linear-gradient(to bottom, #3c9d5e, #0e4429);
+  background: linear-gradient(to bottom, #09A669, #0e4429);
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -58,7 +58,7 @@ body.home-bg {
   padding: 0.5em 1em;
   margin-left: 5px;
   background-color: white;
-  color: green;
+  color: #09A669;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -87,8 +87,8 @@ body.home-bg {
 }
 
 .login-bg {
-  background: linear-gradient(to bottom, #3c9d5e, #0e4429);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #09A669, #0e4429);
+  font-family: 'Inter', Arial, sans-serif;
   color: white;
   height: 100vh;
   display: flex;
@@ -137,7 +137,7 @@ body.home-bg {
 }
 
 .login-container button {
-  background-color: #4CAF50;
+  background-color: #09A669;
   color: white;
   border: none;
   padding: 0.8em;
@@ -152,7 +152,7 @@ body.home-bg {
 }
 
 .cadastro-link a {
-  color: #72ff99;
+  color: #09A669;
   text-decoration: none;
   font-weight: bold;
 }
@@ -160,7 +160,7 @@ body.home-bg {
 .btn-voltar {
   display: inline-block;
   margin-bottom: 10px;
-  color: #72ff99;
+  color: #09A669;
   font-weight: bold;
   text-decoration: none;
   font-size: 0.9em;
@@ -184,7 +184,7 @@ body.home-bg {
 }
 
 .lista-transacoes li strong {
-  color: #72ff99;
+  color: #09A669;
 }
 
 .lista-transacoes li small {
@@ -196,7 +196,7 @@ body.home-bg {
 .btn-secundario {
   display: inline-block;
   background-color: white;
-  color: #007f5f;
+  color: #007f5f; /* pode trocar para #09A669 se preferir */
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
@@ -227,7 +227,7 @@ body.home-bg {
 
 /* Botões Editar e Excluir nas transações */
 .btn-editar, .btn-deletar {
-  color: #72ff99;
+  color: #09A669;
   font-weight: bold;
   text-decoration: none;
   font-size: 0.85em;

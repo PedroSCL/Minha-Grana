@@ -1,23 +1,25 @@
 <!-- views/cadastro.mustache -->
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <title>Cadastro - Minha Grana</title>
   <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 </head>
 <body class="login-bg">
   <div class="login-container">
     <a href="/" class="btn-voltar">← Voltar para Home</a>
 
-    <h1>Minha<br>grana</h1>
+    <h1>Minha Grana</h1>
     <h3>CADASTRO</h3>
     <p>Crie sua conta para começar a organizar suas finanças.</p>
 
     <form method="POST" action="/cadastro">
       <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="email" name="email" placeholder="Seu melhor email" value="{{email}}" required>
+      <input type="email" name="email" placeholder="Seu email" value="{{email}}" required>
       <input type="password" name="senha" placeholder="Crie uma senha" required>
       <input type="tel" name="telefone" placeholder="Telefone (opcional)">
       <button type="submit">Criar Conta</button>
