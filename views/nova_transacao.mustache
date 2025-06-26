@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Transação - Minha Grana</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-bg">
+  <div class="login-container">
+    <a href="/transacoes" class="btn-voltar">← Voltar</a>
+
+    <h1>Minha<br>grana</h1>
+    <h3>NOVA TRANSAÇÃO</h3>
+    <p>Preencha os dados abaixo para adicionar uma nova receita ou despesa.</p>
+
+    <form method="POST" action="/transacoes/nova">
+      <input type="number" name="valor" step="0.01" placeholder="Valor (ex: 100.00)" required>
+      <input type="date" name="data" required>
+      <input type="text" name="categoria" placeholder="Categoria (ex: Transporte)" required>
+      <input type="text" name="descricao" placeholder="Descrição (opcional)">
+      
+      <select name="tipo" required>
+        <option value="" disabled selected>Tipo</option>
+        <option value="receita">Receita</option>
+        <option value="despesa">Despesa</option>
+      </select>
+
+      <button type="submit" class="btn-secundario">Salvar</button>
+    </form>
+  </div>
+</body>
+</html>

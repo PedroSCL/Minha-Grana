@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas Transações - Minha Grana</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-bg">
+  <div class="login-container">
+    <a href="/logout" class="btn-voltar">← Sair</a>
+
+    <h1>Minha<br>grana</h1>
+    <h3>MINHAS TRANSAÇÕES</h3>
+    <p>Olá, {{nomeUsuario}}. Aqui estão suas receitas e despesas:</p>
+
+    {{#transacoes.length}}
+      <ul class="lista-transacoes">
+        {{#transacoes}}
+          <li>
+            <strong>{{tipo}}</strong> - {{categoria}} - R$ {{valor}} - {{data}}<br>
+            <small>{{descricao}}</small><br>
+            <a href="/transacoes/editar/{{id}}" class="btn-editar">Editar</a>
+            |
+            <a href="/transacoes/deletar/{{id}}" class="btn-deletar" onclick="return confirm('Tem certeza que deseja excluir esta transação?')">Excluir</a>
+          </li>
+        {{/transacoes}}
+      </ul>
+    {{/transacoes.length}}
+
+    {{^transacoes.length}}
+      <p>Nenhuma transação registrada.</p>
+    {{/transacoes.length}}
+
+    <a href="/transacoes/nova" class="btn-secundario">+ Nova Transação</a>
+  </div>
+</body>
+</html>

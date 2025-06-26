@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Transação - Minha Grana</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-bg">
+  <div class="login-container">
+    <a href="/transacoes" class="btn-voltar">← Voltar</a>
+
+    <h1>Minha<br>grana</h1>
+    <h3>EDITAR TRANSAÇÃO</h3>
+    <p>Edite os dados da sua transação.</p>
+
+    <form method="POST" action="/transacoes/editar/{{transacao.id}}">
+      <input type="number" name="valor" step="0.01" placeholder="Valor" value="{{transacao.valor}}" required>
+      <input type="date" name="data" value="{{transacao.data}}" required>
+      <input type="text" name="categoria" placeholder="Categoria" value="{{transacao.categoria}}" required>
+      <input type="text" name="descricao" placeholder="Descrição (opcional)" value="{{transacao.descricao}}">
+
+      <select name="tipo" required>
+        <option value="receita" {{#transacao.isReceita}}selected{{/transacao.isReceita}}>Receita</option>
+        <option value="despesa" {{#transacao.isDespesa}}selected{{/transacao.isDespesa}}>Despesa</option>
+      </select>
+
+      <button type="submit" class="btn-secundario">Salvar</button>
+    </form>
+  </div>
+</body>
+</html>

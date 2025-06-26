@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Minha Grana</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="login-bg">
+  <div class="login-container">
+    <a href="/" class="btn-voltar">← Voltar para Home</a>
+
+    <h1>Minha<br>grana</h1>
+    <p>Gerencie seu dinheiro de forma inteligente</p>
+    <h3>LOGIN</h3>
+
+    <form method="POST" action="/login">
+      <input type="text" name="email" placeholder="Email" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <a href="#">Esqueci minha senha</a>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <p class="cadastro-link">Não possui uma conta? <a href="/cadastro">Cadastre-se aqui!</a></p>
+  </div>
+</body>
+</html>

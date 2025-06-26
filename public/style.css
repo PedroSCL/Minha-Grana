@@ -1,0 +1,245 @@
+body {
+  font-family: Arial;
+  margin: 20px;
+}
+input, button {
+  margin: 5px;
+}
+
+body.home-bg {
+  background: linear-gradient(to bottom, #3c9d5e, #0e4429);
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  background-color: transparent;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.header nav a {
+  margin-left: 15px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.hero {
+  text-align: center;
+  padding: 2em;
+}
+
+.hero h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.sub {
+  margin-bottom: 1em;
+}
+
+.email-form input {
+  padding: 0.5em;
+  border-radius: 5px;
+  border: none;
+  width: 200px;
+}
+
+.email-form button {
+  padding: 0.5em 1em;
+  margin-left: 5px;
+  background-color: white;
+  color: green;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1em;
+  border-radius: 10px;
+  width: 300px;
+  text-align: left;
+}
+
+.charts img {
+  max-width: 100%;
+  margin-top: 2em;
+  border-radius: 10px;
+}
+
+.login-bg {
+  background: linear-gradient(to bottom, #3c9d5e, #0e4429);
+  font-family: Arial, sans-serif;
+  color: white;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2em;
+  border-radius: 15px;
+  width: 320px;
+  text-align: center;
+}
+
+.login-container h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.login-container p {
+  margin: 0.5em 0 1em;
+}
+
+.login-container h3 {
+  margin-bottom: 1em;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container input {
+  margin: 0.5em 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.login-container a {
+  font-size: 0.9em;
+  color: #ccc;
+  margin-bottom: 1em;
+  text-decoration: none;
+}
+
+.login-container button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.8em;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cadastro-link {
+  margin-top: 1em;
+  font-size: 0.9em;
+}
+
+.cadastro-link a {
+  color: #72ff99;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-voltar {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #72ff99;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+/* Estilo da lista de transações */
+.lista-transacoes {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 1.5em;
+}
+
+.lista-transacoes li {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95em;
+}
+
+.lista-transacoes li strong {
+  color: #72ff99;
+}
+
+.lista-transacoes li small {
+  font-size: 0.8em;
+  color: #ccc;
+}
+
+/* Botão secundário (ex: + Nova Transação) */
+.btn-secundario {
+  display: inline-block;
+  background-color: white;
+  color: #007f5f;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn-secundario:hover {
+  background-color: #eee;
+}
+
+/* Formulário de nova transação */
+.login-container select {
+  margin: 0.5em 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.login-container label {
+  text-align: left;
+  font-size: 0.9em;
+  color: #ccc;
+  margin-top: 10px;
+  display: block;
+}
+
+/* Botões Editar e Excluir nas transações */
+.btn-editar, .btn-deletar {
+  color: #72ff99;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.85em;
+  margin-right: 10px;
+}
+
+.btn-editar:hover {
+  text-decoration: underline;
+}
+
+.btn-deletar:hover {
+  text-decoration: underline;
+  color: #ff7272;
+  cursor: pointer;
+}
