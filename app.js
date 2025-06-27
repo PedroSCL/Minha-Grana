@@ -53,7 +53,7 @@ app.post('/login', (req, res) => {
       req.session.usuario = usuario;
       return res.redirect('/dashboard'); 
     } else {
-      res.send('Login inválido. Verifique seu email e senha.');
+      res.render('login', { loginError: true });
     }
   });
 });
