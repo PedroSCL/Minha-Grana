@@ -443,6 +443,32 @@ app.get('/transacoes/editar/:id', auth, (req, res) => {
   });
 });
 
+app.post('/transacoes/editar/:id', auth, (req, res) => {
+  const usuario = req.session.usuario.usuario;
+  const id = req.params.id;
+  const { tipo, valor, data, categoria, descricao } = req.body;
+
+  const sql = `
+    UPDATE transacoes
+    SET tipo = ?, valor = ?, data = ?, categoria = ?, descricao = ?
+    WHERE id = ? AND usuario = ?
+  `;
+
+  db.run(sql, [tipo, valor, data, categoria, descricao, id, usuario], function(err) {
+    if (err) {
+      console.error("Erro ao atualizar a transação:", err.message);
+      return res.status(500).send("Erro ao atualizar a transação.");
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).send("Transação não encontrada ou sem permissão para editar.");
+    }
+
+    res.redirect('/transacoes');
+  });
+});
+
+
 // Rotas do Perfil 
 app.get('/perfil', auth, (req, res) => {
     const user = req.session.usuario;
