@@ -12,6 +12,7 @@ db.serialize(() => {
       senha TEXT NOT NULL,
       telefone TEXT,
       usuario TEXT NOT NULL
+      -- A coluna 'foto_perfil_url' foi removida em alterações anteriores.
     )
   `);
 
@@ -35,6 +36,18 @@ db.serialize(() => {
       tipo TEXT CHECK(tipo IN ('receita', 'despesa')) NOT NULL,
       usuario TEXT NOT NULL,
       FOREIGN KEY (usuario) REFERENCES usuarios(usuario)
+    )
+  `);
+
+  //nova tabela para armazenar os limites de gastos por categoria para cada usuario
+  db.run(`
+    CREATE TABLE IF NOT EXISTS user_payment_targets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_email TEXT NOT NULL, -- email identifcador
+      category TEXT NOT NULL,
+      target_amount REAL NOT NULL,
+      UNIQUE(user_email, category), 
+      FOREIGN KEY (user_email) REFERENCES usuarios(email)
     )
   `);
 });

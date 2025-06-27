@@ -1,32 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Editar Transação - Minha Grana</title>
-  <link rel="stylesheet" href="/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Transação - Minha Grana</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="login-bg">
-  <div class="login-container">
-    <a href="/transacoes" class="btn-voltar">← Voltar</a>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="app-logo">Minha Grana</a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/dashboard"><i class="fas fa-th-large"></i> Painel de Controle</a></li>
+                    <li><a href="/transacoes" class="active"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                    <li><a href="/perfil"><i class="fas fa-user"></i> Perfil</a></li>
+                    <li><a href="/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    <h1>Minha<br>grana</h1>
-    <h3>EDITAR TRANSAÇÃO</h3>
-    <p>Edite os dados da sua transação.</p>
+        <div class="main-content">
+            <header class="dashboard-header">
+                <h2>Editar Transação</h2>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <span>{{nomeUsuario}}</span>
+                        <div class="user-profile-initials">
+                            <span>{{iniciaisUsuario}}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-    <form method="POST" action="/transacoes/editar/{{transacao.id}}">
-      <input type="number" name="valor" step="0.01" placeholder="Valor" value="{{transacao.valor}}" required>
-      <input type="date" name="data" value="{{transacao.data}}" required>
-      <input type="text" name="categoria" placeholder="Categoria" value="{{transacao.categoria}}" required>
-      <input type="text" name="descricao" placeholder="Descrição (opcional)" value="{{transacao.descricao}}">
+            <div class="form-card"> 
+                <a href="/transacoes" class="btn-voltar">← Voltar para Transações</a>
 
-      <select name="tipo" required>
-        <option value="receita" {{#transacao.isReceita}}selected{{/transacao.isReceita}}>Receita</option>
-        <option value="despesa" {{#transacao.isDespesa}}selected{{/transacao.isDespesa}}>Despesa</option>
-      </select>
+                <form action="/transacoes/editar/{{transacao.id}}" method="POST">
+                    <div class="form-group">
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="receita" {{#transacao.isReceita}}selected{{/transacao.isReceita}}>Receita</option>
+                            <option value="despesa" {{#transacao.isDespesa}}selected{{/transacao.isDespesa}}>Despesa</option>
+                        </select>
+                    </div>
 
-      <button type="submit" class="btn-secundario">Salvar</button>
-    </form>
-  </div>
+                    <div class="form-group">
+                        <label for="valor">Valor:</label>
+                        <input type="number" id="valor" name="valor" step="0.01" value="{{transacao.valor}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="date" id="data" name="data" value="{{transacao.formattedDate}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoria:</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="Alimentação" {{{equals 'Alimentação' transacao.categoria}}}>Alimentação</option>
+                            <option value="Transporte" {{{equals 'Transporte' transacao.categoria}}}>Transporte</option>
+                            <option value="Moradia" {{{equals 'Moradia' transacao.categoria}}}>Moradia</option>
+                            <option value="Lazer" {{{equals 'Lazer' transacao.categoria}}}>Lazer</option>
+                            <option value="Saúde" {{{equals 'Saúde' transacao.categoria}}}>Saúde</option>
+                            <option value="Educação" {{{equals 'Educação' transacao.categoria}}}>Educação</option>
+                            <option value="Salário" {{{equals 'Salário' transacao.categoria}}}>Salário</option>
+                            <option value="Presente" {{{equals 'Presente' transacao.categoria}}}>Presente</option>
+                            <option value="Serviços" {{{equals 'Serviços' transacao.categoria}}}>Serviços</option>
+                            <option value="Investimento" {{{equals 'Investimento' transacao.categoria}}}>Investimento</option>
+                            <option value="Aluguel" {{{equals 'Aluguel' transacao.categoria}}}>Aluguel</option> <!-- Adicionada para pagamentos -->
+                            <option value="Contas de Consumo" {{{equals 'Contas de Consumo' transacao.categoria}}}>Contas de Consumo</option> <!-- Adicionada para pagamentos -->
+                            <option value="Assinaturas" {{{equals 'Assinaturas' transacao.categoria}}}>Assinaturas</option> <!-- Adicionada para pagamentos -->
+                            <option value="Outros" {{{equals 'Outros' transacao.categoria}}}>Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição (opcional):</label>
+                        <input type="text" id="descricao" name="descricao" value="{{transacao.descricao}}">
+                    </div>
+
+                    <button type="submit">Salvar Alterações</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -166,7 +166,6 @@ body.home-bg {
   font-size: 0.9em;
 }
 
-/* Estilo da lista de transações */
 .lista-transacoes {
   list-style: none;
   padding: 0;
@@ -192,11 +191,10 @@ body.home-bg {
   color: #ccc;
 }
 
-/* Botão secundário (ex: + Nova Transação) */
 .btn-secundario {
   display: inline-block;
   background-color: white;
-  color: #007f5f; /* pode trocar para #09A669 se preferir */
+  color: #007f5f; 
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
@@ -209,7 +207,6 @@ body.home-bg {
   background-color: #eee;
 }
 
-/* Formulário de nova transação */
 .login-container select {
   margin: 0.5em 0;
   padding: 10px;
@@ -225,7 +222,6 @@ body.home-bg {
   display: block;
 }
 
-/* Botões Editar e Excluir nas transações */
 .btn-editar, .btn-deletar {
   color: #09A669;
   font-weight: bold;
@@ -242,4 +238,76 @@ body.home-bg {
   text-decoration: underline;
   color: #ff7272;
   cursor: pointer;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; 
+}
+
+.modal-content {
+    background-color: var(--card-bg); 
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    color: var(--text-light); 
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: var(--text-light);
+    margin-bottom: 0.8em;
+}
+
+.modal-content p {
+    font-size: 1em;
+    margin-bottom: 1.5em;
+    color: var(--text-muted); 
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.btn-primary-modal,
+.btn-secondary-modal {
+    padding: 0.8em 1.5em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary-modal {
+    background-color: var(--red-expense); 
+    color: white;
+}
+
+.btn-primary-modal:hover {
+    background-color: #d84552; 
+    transform: translateY(-1px);
+}
+
+.btn-secondary-modal {
+    background-color: var(--text-muted); 
+    color: var(--bg-dark);
+}
+
+.btn-secondary-modal:hover {
+    background-color: #7a7a85; 
+    transform: translateY(-1px);
 }

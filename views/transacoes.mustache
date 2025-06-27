@@ -1,38 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Minhas Transações - Minha Grana</title>
-  <link rel="stylesheet" href="/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Transações - Minha Grana</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <!-- Inclua Font Awesome para os ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="login-bg">
-  <div class="login-container">
-    <a href="/logout" class="btn-voltar">← Sair</a>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="app-logo">Minha Grana</a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/dashboard"><i class="fas fa-th-large"></i> Painel de Controle</a></li>
+                    <li><a href="/transacoes" class="active"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                    <li><a href="/perfil"><i class="fas fa-user"></i> Perfil</a></li>
+                    <li><a href="/configuracoes-pagamentos"><i class="fas fa-cog"></i> Configurações</a></li> <!-- LINK ADICIONADO AQUI -->
+                    <li><a href="/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    <h1>Minha<br>grana</h1>
-    <h3>MINHAS TRANSAÇÕES</h3>
-    <p>Olá, {{nomeUsuario}}. Aqui estão suas receitas e despesas:</p>
+        <div class="main-content">
+            <header class="dashboard-header">
+                <h2>Minhas Transações</h2>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <span>{{nomeUsuario}}</span>
+                        <div class="user-profile-initials">
+                            <span>{{iniciaisUsuario}}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-    {{#transacoes.length}}
-      <ul class="lista-transacoes">
-        {{#transacoes}}
-          <li>
-            <strong>{{tipo}}</strong> - {{categoria}} - R$ {{valor}} - {{data}}<br>
-            <small>{{descricao}}</small><br>
-            <a href="/transacoes/editar/{{id}}" class="btn-editar">Editar</a>
-            |
-            <a href="/transacoes/deletar/{{id}}" class="btn-deletar" onclick="return confirm('Tem certeza que deseja excluir esta transação?')">Excluir</a>
-          </li>
-        {{/transacoes}}
-      </ul>
-    {{/transacoes.length}}
+            <div class="card">
+                <p>Olá, {{nomeUsuario}}. Aqui estão suas receitas e despesas:</p>
 
-    {{^transacoes.length}}
-      <p>Nenhuma transação registrada.</p>
-    {{/transacoes.length}}
+                {{#transacoes.length}}
+                <ul class="transaction-list">
+                    {{#transacoes}}
+                    <li>
+                        <div class="transaction-info">
+                            <span class="transaction-description">{{descricao}}</span>
+                            <span class="transaction-category">{{categoria}} - {{data}}</span>
+                        </div>
+                        <span class="transaction-amount {{#isDespesa}}expense{{/isDespesa}} {{#isReceita}}income{{/isReceita}}">
+                            {{#isDespesa}}-{{/isDespesa}}{{^isDespesa}}+{{/isDespesa}}{{valor}}
+                        </span>
+                        <div class="transaction-actions">
+                            <a href="/transacoes/editar/{{id}}" class="btn-editar">Editar</a>
+                            <a href="#" class="btn-deletar" data-id="{{id}}">Excluir</a>
+                        </div>
+                    </li>
+                    {{/transacoes}}
+                </ul>
+                {{/transacoes.length}}
 
-    <a href="/transacoes/nova" class="btn-secundario">+ Nova Transação</a>
-  </div>
+                {{^transacoes.length}}
+                <p>Nenhuma transação registrada.</p>
+                {{/transacoes.length}}
+
+                <a href="/transacoes/nova" class="btn-secundario">+ Nova Transação</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação (será adicionado via JS) -->
+    <div id="confirmationModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir esta transação?</p>
+            <div class="modal-actions">
+                <button id="confirmDeleteBtn" class="btn-primary-modal">Excluir</button>
+                <button id="cancelDeleteBtn" class="btn-secondary-modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.transaction-list li').forEach(item => {
+                const amountSpan = item.querySelector('.transaction-amount');
+                if (amountSpan) {
+                    if (amountSpan.textContent.includes('-R$')) {
+                        amountSpan.classList.add('expense');
+                    } else if (amountSpan.textContent.includes('+R$') || !amountSpan.textContent.includes('-R$')) {
+                        amountSpan.classList.add('income');
+                    }
+                }
+            });
+
+            const modal = document.getElementById('confirmationModal');
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            const cancelBtn = document.getElementById('cancelDeleteBtn');
+            let transactionToDeleteId = null;
+
+            document.querySelectorAll('.btn-deletar').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    transactionToDeleteId = this.dataset.id;
+                    modal.style.display = 'flex'; 
+                });
+            });
+
+            confirmBtn.addEventListener('click', function() {
+                if (transactionToDeleteId) {
+                    window.location.href = `/transacoes/deletar/${transactionToDeleteId}`;
+                }
+                modal.style.display = 'none'; 
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                modal.style.display = 'none'; 
+                transactionToDeleteId = null;
+            });
+        });
+    </script>
 </body>
 </html>

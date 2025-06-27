@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Grana - Painel de Controle</title>
+    <link rel="stylesheet" href="/dashboard.css">
+    <!-- Inclua a biblioteca Chart.js via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <!-- Inclua Font Awesome para os ícones, se desejar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="app-logo">Minha Grana</a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/dashboard" class="active"><i class="fas fa-th-large"></i> Painel de Controle</a></li>
+                    <li><a href="/transacoes"><i class="fas fa-exchange-alt"></i> Transações</a></li>
+                    <li><a href="/perfil"><i class="fas fa-user"></i> Perfil</a></li>
+                    <li><a href="/configuracoes-pagamentos"><i class="fas fa-cog"></i> Configurações</a></li> <!-- NOVO LINK -->
+                    <li><a href="/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="dashboard-header">
+                <h2>Painel de Controle</h2>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <span>{{nomeUsuario}}</span>
+                        <div class="user-profile-initials">
+                            <span>{{iniciaisUsuario}}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="summary-cards">
+                <div class="card income-card">
+                    <i class="fas fa-sack-dollar"></i>
+                    <h3>Receitas</h3>
+                    <p>{{totalReceitas}}</p>
+                </div>
+                <div class="card expense-card">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Despesas</h3>
+                    <p>{{totalDespesas}}</p>
+                </div>
+                <div class="card balance-card">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Saldo Final</h3>
+                    <p>{{saldoFinal}}</p>
+                </div>
+                <div class="card investment-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Investimentos</h3>
+                    <p>{{totalInvestimentos}}</p>
+                </div>
+            </section>
+
+            <section class="overview-chart-section">
+                <div class="chart-header">
+                    <h2>Visão Geral</h2>
+                    <div class="chart-controls">
+                        <span class="legend-dot income-dot"></span> Receitas
+                        <span class="legend-dot expense-dot"></span> Despesas
+                    </div>
+                </div>
+                <canvas id="overviewChart"></canvas>
+            </section>
+
+            <div class="bottom-sections">
+                <section class="payments-section card">
+                    <h2>Pagamentos</h2>
+                    <ul class="payment-list">
+                        {{#payments}}
+                        <li>
+                            <div class="payment-item-header">
+                                <span class="payment-icon">{{{icon}}}</span>
+                                <span>{{name}}</span>
+                            </div>
+                            <div class="payment-progress">
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" style="width: {{percentage}}%;"></div>
+                                </div>
+                                <span class="payment-value">{{current}}/{{total}}</span>
+                            </div>
+                        </li>
+                        {{/payments}}
+                    </ul>
+                </section>
+
+                <section class="recent-transactions-section card">
+                    <h2>Transações Recentes</h2>
+                    <a href="/transacoes" class="view-all-link">Ver todas</a>
+                    <ul class="transaction-list">
+                        {{#transacoesRecentes}}
+                        <li>
+                            <div class="transaction-info">
+                                <span class="transaction-description">{{descricao}}</span>
+                                <span class="transaction-category">{{categoria}}</span>
+                            </div>
+                            <span class="transaction-amount {{#isDespesa}}expense{{/isDespesa}} {{#isReceita}}income{{/isReceita}}">
+                                {{#isDespesa}}-{{/isDespesa}}{{^isDespesa}}+{{/isDespesa}}{{valor}}
+                            </span>
+                        </li>
+                        {{/transacoesRecentes}}
+                        {{^transacoesRecentes}}
+                        <li>Nenhuma transação recente para exibir.</li>
+                        {{/transacoesRecentes}}
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chartLabels = JSON.parse('{{{chartLabels}}}');
+        const chartReceitasData = JSON.parse('{{{chartReceitasData}}}');
+        const chartDespesasData = JSON.parse('{{{chartDespesasData}}}');
+
+        const ctxOverview = document.getElementById('overviewChart').getContext('2d');
+        new Chart(ctxOverview, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [
+                    {
+                        label: 'Receitas',
+                        data: chartReceitasData,
+                        borderColor: '#09A669', 
+                        backgroundColor: 'rgba(9, 166, 105, 0.2)',
+                        tension: 0.4, 
+                        fill: false, 
+                        pointBackgroundColor: '#09A669',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#09A669',
+                    },
+                    {
+                        label: 'Despesas',
+                        data: chartDespesasData,
+                        borderColor: '#FF6384', 
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#FF6384',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#FF6384',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false 
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white',
+                            callback: function(value, index, values) {
+                                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        document.querySelectorAll('.transaction-list li').forEach(item => {
+            const amountSpan = item.querySelector('.transaction-amount');
+            if (amountSpan) {
+                if (amountSpan.textContent.includes('-R$')) {
+                    amountSpan.classList.add('expense');
+                } else if (amountSpan.textContent.includes('+R$') || !amountSpan.textContent.includes('-R$')) {
+                    amountSpan.classList.add('income');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
